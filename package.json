@@ -1,18 +1,18 @@
 {
-  "name": "@lc-cn/ts-dev-template",
+  "name": "obj-observer",
   "version": "1.0.0",
-  "description": "ts开发环境配置",
+  "description": "js对象监听",
   "main": "lib/index.js",
   "scripts": {
     "start": "node .",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "dev": "ts-node-dev -r tsconfig-paths/register ./src/index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register ./src/test.ts",
     "pub": "npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lc-cn/ts-dev-template.git"
+    "url": "git+https://github.com/liucl-cn/obj-observer.git"
   },
   "keywords": [
     "ts",
@@ -22,9 +22,9 @@
   "author": "凉菜",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lc-cn/ts-dev-template/issues"
+    "url": "https://github.com/liucl-cn/obj-observer/issues"
   },
-  "homepage": "https://github.com/lc-cn/ts-dev-template#readme",
+  "homepage": "https://github.com/liucl-cn/obj-observer#readme",
   "devDependencies": {
     "@types/node": "latest",
     "ts-node-dev": "latest",
