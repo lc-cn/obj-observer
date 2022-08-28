@@ -1,6 +1,6 @@
 {
   "name": "obj-observer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "js对象监听",
   "main": "lib/index.js",
   "scripts": {

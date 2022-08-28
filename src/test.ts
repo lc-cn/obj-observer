@@ -5,3 +5,6 @@ const [obj]=watch({
     console.log('tttttt',value,oldValue)
 })
 obj['aaa']='bbb'
+console.log(1)
+obj['ccc']=[]
+console.log(2)

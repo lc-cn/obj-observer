@@ -65,12 +65,10 @@ const postNotice = (fns:CallBack[], oldV, newV, handle) => {
             fn && fn.before && fn.before(uid)
         }
         handle(newV)
-        Promise.resolve().then(() => {
-            for (let fn of fns) {
-                fn && fn.after && fn.after(uid)
-            }
-            running.delete(fns)
-        })
+        for (let fn of fns) {
+            fn && fn.after && fn.after(uid)
+        }
+        running.delete(fns)
         return true
     }
     return false
