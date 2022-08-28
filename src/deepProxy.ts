@@ -156,6 +156,7 @@ export type Config<T extends object>=({
 export type Proxied<T extends object>={
     [P in keyof T]:T[P] extends object?Proxied<T[P]>:T[P]
 } & {
+    [key:string]:any
     [callBackProxy]?:CallBack[]
     [watchDepthSymbol]?:number
     [watchConfigsSymbol]?:Config<T>
