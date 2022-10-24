@@ -37,5 +37,8 @@
     "/lib/**/*.d.ts",
     "/lib/**/LICENSE"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@types/lodash": "^4.14.184",
+    "lodash": "^4.17.21"
+  }
 }

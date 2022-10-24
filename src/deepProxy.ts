@@ -147,11 +147,12 @@ function toProxy<T>(obj:T, depth:number = 0, currentDepth:number):T{
         deleteProperty: deleteHandler,
     })
 }
-type Cb<T=any>=(value:T,oldValue:T)=>void
+
+type Cb<T>=(value:T,oldValue:T)=>void
 export type Config<T extends object>=({
     [P in keyof T]?:Cb<T[P]>
 } & {
-    [P in '*']?:Cb
+    [P in '*']?:Cb<T>
 }) | Cb<T>
 export type Proxied<T extends object>={
     [P in keyof T]:T[P] extends object?Proxied<T[P]>:T[P]

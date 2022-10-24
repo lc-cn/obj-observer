@@ -1,12 +1,18 @@
-import {watch} from "@/index";
-const [obj]=watch({
-    test:'hello'
-},{
-    '*':(value,oldValue)=>{
-        console.log('watch all',value,oldValue)
+import {ref, watch} from "@/index";
+const obj=ref({
+    test:'hello',
+    a:{b:'a'}
+})
+const dispose=watch(obj,{
+    '*':(val,oldVal)=>{
+        console.log('obj changed ',val,oldVal)
     },
-    test(value,oldValue){
-        console.log('watch test',value,oldValue)
+    a(val,oldVal){
+        console.log('a changed ',val,oldVal)
+    },
+    test(val,oldVal){
+        console.log('test changed ',val,oldVal)
     }
 })
+obj.a ={b:'aa'}
 obj.test='hi'

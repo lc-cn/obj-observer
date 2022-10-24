@@ -14,20 +14,24 @@ export function Watcher<T>(source:T, depth:number = 0) {
 }
 export type Dispose=()=>void
 export type MaybeProxy<T extends object>=T|Proxied<T>
-export function watch<T extends object>(obj:T, config:Config<T>, env=this):[Proxied<T>,Dispose] {
+export function ref<T extends object>(obj:T):Proxied<T> {
     let target:MaybeProxy<T>=obj
-    if (!obj.hasOwnProperty(callBackProxy)) {
+    if (!Reflect.get(obj,callBackProxy)) {
         target = Watcher(obj)
     }
-    let depth = target[watchDepthSymbol] || 0
-    if (!target[watchConfigsSymbol]) {
-        target[watchConfigsSymbol] = new WeakMap()
+    return target as Proxied<T>
+}
+export function watch<T extends object>(obj:Proxied<T>,config:Config<T>,env=this):Dispose{
+
+    let depth = Reflect.get(obj,watchDepthSymbol) || 0
+    if (!Reflect.get(obj,watchConfigsSymbol)) {
+        Reflect.set(obj,watchConfigsSymbol,new WeakMap())
     }
-    if (!target[watchConfigsSymbol].has(config)) {
+    if (!Reflect.get(obj,watchConfigsSymbol).has(config)) {
         const cb:CallBack = {
             dict: {},
             before(uid) {
-                let oldValue = deepClone(target, depth)
+                let oldValue = deepClone(obj, depth)
                 this.dict[uid] = {}
                 if(typeof config==='function'){
                     this.dict[uid]['*'] = {
@@ -57,7 +61,7 @@ export function watch<T extends object>(obj:T, config:Config<T>, env=this):[Prox
                 }
             },
             after(uid) {
-                let newValue = deepClone(target, depth)
+                let newValue = deepClone(obj, depth)
                 if (!this.dict[uid]) {
                     return
                 }
@@ -81,24 +85,22 @@ export function watch<T extends object>(obj:T, config:Config<T>, env=this):[Prox
                         let old = this.dict[uid][k].old
                         if (!isEqual(current, old)) {
                             let fun = typeof config[k] === 'function' ? config[k] : typeof config==='function'?config:config[k].handler
-                            fun && fun.call(env, current, old, target)
+                            fun && fun.call(env, current, old, obj)
                         }
                     }
                 }
                 delete this.dict[uid]
             },
         }
-        target[watchConfigsSymbol].set(config, cb)
-        if (!target[callBackProxy].includes(cb)) {
-            target[callBackProxy].push(cb)
+        Reflect.get(obj,watchConfigsSymbol).set(config, cb)
+        if (!Reflect.get(obj,callBackProxy).includes(cb)) {
+            Reflect.get(obj,callBackProxy).push(cb)
         }
     }
-    const dispose = () => {
-        destroy(target, config)
+    return () => {
+        destroy(obj, config)
     }
-    return [target,dispose]
 }
-
 export function destroy<T>(target:T, config?) {
     if (!config) {
         target[watchConfigsSymbol] = new WeakMap()
