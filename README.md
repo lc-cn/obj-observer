@@ -8,9 +8,9 @@ npm install obj-observer
 ```
 2. 在需要的地方引入watch方法，监听对象或数组的变化
 ```javascript
-import {watch} from 'obj-observer'
-const [obj,dispose]=watch(
-    {test:'hello world'},
+import {ref,watch} from 'obj-observer'
+const obj=ref({test:123})
+const dispose=watch(obj,
     (value,oldValue)=>{
         console.log('trigger change',value,oldValue)
     })
