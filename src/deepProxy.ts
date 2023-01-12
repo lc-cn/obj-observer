@@ -85,7 +85,8 @@ const checkValue = (value, depth, currentDepth) => {
         typeof value === 'object' &&
         !value[callBackProxy] &&
         (depth === 0 || currentDepth < depth) &&
-        Object.isExtensible(value)
+        Object.isExtensible(value) &&
+        !(value instanceof RegExp)
     )
 }
 const deleteHandler = (target, key) => {
