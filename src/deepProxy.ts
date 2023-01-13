@@ -81,8 +81,7 @@ const checkKey = (key) => {
     )
 }
 const checkValue = (value, depth, currentDepth) => {
-    return (
-        typeof value === 'object' &&
+    return (value && typeof value === 'object' &&
         !value[callBackProxy] &&
         (depth === 0 || currentDepth < depth) &&
         Object.isExtensible(value) &&

@@ -1,6 +1,6 @@
 {
   "name": "obj-observer",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "js对象监听",
   "main": "lib/index.js",
   "scripts": {
@@ -16,15 +16,16 @@
   },
   "keywords": [
     "ts",
-    "dev",
-    "template"
+    "observer",
+    "proxy",
+    "js"
   ],
   "author": "凉菜",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/liucl-cn/obj-observer/issues"
+    "url": "https://github.com/lc-cn/obj-observer/issues"
   },
-  "homepage": "https://github.com/liucl-cn/obj-observer#readme",
+  "homepage": "https://github.com/lc-cn/obj-observer#readme",
   "devDependencies": {
     "@types/node": "latest",
     "ts-node-dev": "latest",
@@ -36,9 +37,5 @@
     "/lib/**/*.js",
     "/lib/**/*.d.ts",
     "/lib/**/LICENSE"
-  ],
-  "dependencies": {
-    "@types/lodash": "^4.14.184",
-    "lodash": "^4.17.21"
-  }
+  ]
 }
